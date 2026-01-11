@@ -61,7 +61,7 @@ def create_file_from_url(url, base_dir='doc-localizer'):
     # 构建完整的本地文件路径
     local_path = os.path.join(base_dir, path)
 
-    # 创建目录（如果不存在）
+    # 创建目录
     os.makedirs(os.path.dirname(local_path), exist_ok=True)
 
     # 返回文件路径
@@ -81,9 +81,7 @@ def query_sitemap() -> str:
 
 def parse_sitemap_content_extra_urls(file_content: str):
     root = ET.fromstring(file_content)
-    # 定义命名空间
     namespace = {'ns': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
-    # 提取url
     urls = [loc.text for loc in root.findall('.//ns:loc', namespace)]
     for i, url in enumerate(urls, 1):
         print(f"{i}. {url}")

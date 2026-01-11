@@ -73,7 +73,6 @@ def create_file_from_url(url, base_dir='doc-localizer'):
     return local_path
 
 
-# 高级版本：更精确地解析 Markdown
 def advanced_extract_png_urls(content: str):
     """更高级的 Markdown 解析，处理更多格式"""
 
@@ -107,12 +106,9 @@ def check_is_png(url: str):
     """处理单个 URL：解码并检查是否为 PNG"""
     decoded_url = urllib.parse.unquote(url)
 
-    # 更精确的 PNG 检测
-    # 检查 URL 路径以 .png 结尾，或者查询参数前包含 .png
     parsed = urllib.parse.urlparse(decoded_url)
     path = parsed.path.lower()
 
-    # 检查是否是 PNG
     is_png = (
             path.endswith('.png') or
             '.png?' in path or
@@ -139,8 +135,8 @@ def replace_localizer(md_file: str) -> MdImageLocalizeResult:
         timeout_seconds=60,
     )
     result = process_markdown_file(md_file, cfg)
-    print(result.replaced_map)  # 成功替换的
-    print(result.failed_map)  # 下载失败的（会保留原 URL 不改）
+    print(result.replaced_map)
+    print(result.failed_map)
     return result
 
 

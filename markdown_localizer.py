@@ -153,7 +153,6 @@ def localize_images_in_markdown_text(
         normalized = normalize_url(raw_url, config.fix_alt_media_backslash)
         ext = guess_ext_from_url(normalized)
         if ext is None:
-            # 不确定是不是图片（比如无后缀），这里先不动，避免误伤
             continue
 
         candidates[raw_url] = normalized
@@ -165,7 +164,6 @@ def localize_images_in_markdown_text(
         local_path = images_dir / filename
         rel_path = f"{config.images_dir_name}/{filename}"
 
-        # 已存在则复用
         if local_path.exists() and local_path.stat().st_size > 0:
             replaced[raw_url] = rel_path
             continue
